@@ -37,12 +37,11 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
-import java.util.Arrays;
-import java.util.List;
 
 import loci.common.Constants;
 import loci.common.RandomAccessInputStream;
 import loci.common.xml.XMLTools;
+import loci.formats.FormatHandler;
 import loci.formats.in.TiffReader;
 import loci.formats.tiff.TiffParser;
 
@@ -89,24 +88,21 @@ public class XMLValidate {
         throw new IllegalArgumentException("No files to validate");
     }
     boolean[] results = new boolean[files.length];
-    List<String> extensions = Arrays.asList(TiffReader.TIFF_SUFFIXES);
     for (int i = 0; i < files.length; i++) {
         String file = files[i];
         if (file == null || file.trim().length() == 0) {
           results[i] = false;
         } else{
-          String f = file.toLowerCase();
           boolean b;
-          String extension = f.substring(f.lastIndexOf(".")+1);
-          if (extensions.contains(extension)) {
+          if (FormatHandler.checkSuffix(file, TiffReader.TIFF_SUFFIXES)) {
             String comment = "";
             try (RandomAccessInputStream stream = new RandomAccessInputStream(file)) {
               comment = new TiffParser(stream).getComment();
             }
-            b = validate(new BufferedReader(new StringReader(comment)), f);
+            b = validate(new BufferedReader(new StringReader(comment)), file);
           } else {
             b = validate(new BufferedReader(new InputStreamReader(
-                      new FileInputStream(f), Constants.ENCODING)), f);
+                      new FileInputStream(file), Constants.ENCODING)), file);
           }
           results[i] = b;
         }
