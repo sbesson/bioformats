@@ -55,6 +55,7 @@ public class XMLValidateTest {
     return new Object[][] {
         {"minimum-specification.ome.xml", true},
         {"invalid.ome.xml", false},
+        {"INVALID2.ome.xml", false},
     };
   }
 
