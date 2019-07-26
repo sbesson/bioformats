@@ -9,15 +9,15 @@
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 2 of the
+ * published by the Free Software Foundation, either version 2 of the 
  * License, or (at your option) any later version.
- *
+ * 
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public
+ * 
+ * You should have received a copy of the GNU General Public 
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
  * #L%
@@ -39,13 +39,13 @@ import ome.units.quantity.Length;
 /**
  * PQBinReader is the file format reader for PicoQuant .bin files.
  *
- * Please Note: This format holds FLIM data arranged so that each decay is stored contiguously.
+ * Please Note: This format holds FLIM data arranged so that each decay is stored contiguously. 
  * Therefore, as in other FLIM format readers e.g. SDTReader.java, on the first call to openBytes
  * the whole data cube ( x,y,t) (NB actually t not real-time T) is loaded from the file and buffered
  * On further calls to openBytes the appropriate 2D (x,y)plane (timebin) is returned from this buffer.
  * This is in the interest of significantly improved  performance when all the planes are requested one after another.
  * There will be a performance cost if a single plane is requested but this is highly unlikely for FLIM data.
- * In order to limit the size of the buffer, beyond a certain size threshold only a subset of planes (a Block) are
+ * In order to limit the size of the buffer, beyond a certain size threshold only a subset of planes (a Block) are 
  * retained in the buffer.
  */
 public class PQBinReader extends FormatReader {
@@ -56,7 +56,7 @@ public class PQBinReader extends FormatReader {
 
   // -- Fields --
   /*
-   * Number of time bins in lifetime histogram.
+   * Number of time bins in lifetime histogram. 
    */
   protected int timeBins;
 
@@ -69,14 +69,14 @@ public class PQBinReader extends FormatReader {
    * Block of time bins currently stored for faster loading.
    */
   protected int currentBlock;
-
+  
   /**
    * No of timeBins pre-loaded as a block
   */
-  protected int blockLength ;
-
-
-
+  protected int blockLength ;  
+  
+  
+  
 
   // -- Constructor --
   /**
@@ -89,7 +89,7 @@ public class PQBinReader extends FormatReader {
   }
 
   // -- IFormatReader API methods --
-
+  
   /* @see loci.formats.IFormatReader#isThisType(RandomAccessInputStream) */
   @Override
   public boolean isThisType(RandomAccessInputStream stream) throws IOException {
@@ -122,36 +122,36 @@ public class PQBinReader extends FormatReader {
     throws FormatException, IOException
   {
     FormatTools.checkPlaneParameters(this, no, buf.length, x, y, w, h);
-
-
+    
+    
     int sizeX = getSizeX();
     int sizeY = getSizeY();
     int bpp = FormatTools.getBytesPerPixel(getPixelType());
     boolean little = isLittleEndian();
-
+    
     int planeSize = sizeX * sizeY * timeBins * bpp;
     int timeBin = no;
 
     int binSize = sizeX * sizeY  * bpp;  // size in Bytes of a single 2D timebin.
-
+   
     int blockSize = sizeX * sizeY * blockLength * bpp;
-
+    
     // pre-load data for performance
     if (dataStore == null) {
       dataStore = new byte[blockSize];
       currentBlock = -1;
     }
-
+      
     if (timeBin/blockLength != currentBlock)  {
-
+      
       currentBlock = timeBin/blockLength;
-
+      
       // A subset of whole timebins (a Block) is  copied into storage
       // to allow different sub-plane sizes to be used for different timebins
-
+      
       byte[] rowBuf = new byte[bpp * timeBins * sizeX];
       in.seek(HEADER_SIZE);
-
+      
       int endOfBlock =  (currentBlock + 1) * blockLength;
       int storeLength;
       if (endOfBlock > timeBins) {
@@ -160,7 +160,7 @@ public class PQBinReader extends FormatReader {
       else {
         storeLength = blockLength;
       }
-
+              
       for (int row = 0; row < sizeY; row++) {
         in.read(rowBuf);
         for (int col = 0; col < sizeX; col++) {
@@ -187,7 +187,7 @@ public class PQBinReader extends FormatReader {
     // offset to correct timebin yth line and xth pixel
 
     int binInStore = timeBin - (currentBlock * blockLength);
-
+    
     int input = (binSize * binInStore) + (y * iLineSize) + (x * bpp);
     int output = 0;
 
@@ -209,7 +209,7 @@ public class PQBinReader extends FormatReader {
       dataStore = null;
       timeBins = 0;
       currentBlock = -1;
-
+     
     }
   }
 
@@ -220,31 +220,31 @@ public class PQBinReader extends FormatReader {
   protected void initFile(String id) throws FormatException, IOException {
     super.initFile(id);
     in = new RandomAccessInputStream(id);
-
+    
     CoreMetadata m = core.get(0);
 
     m.littleEndian = true;
     in.order(isLittleEndian());
 
     LOGGER.info("Reading header PQBin");
-
+   
     // Header
     int sizeX = in.readInt();
     int sizeY = in.readInt();
     m.sizeY = sizeY;
     m.sizeX = sizeX;
-
+    
     float pixResol = in.readFloat();    // Resolution of every Pixel in Image (in µm)
     m.sizeT = in.readInt();             // Number of DataPoints per Decay
-
+    
     float timeResol = in.readFloat();   // resolution of time axis of every Decay (in ns)
-
+    
     timeBins = m.sizeT;
 
     m.sizeZ = 1;
     m.sizeC = 1;
     m.dimensionOrder = "XYZCT";
-
+    
     m.pixelType = FormatTools.UINT32;
     m.rgb = false;
     m.imageCount = m.sizeT;
@@ -255,28 +255,28 @@ public class PQBinReader extends FormatReader {
     m.moduloT.type = FormatTools.LIFETIME;
     m.moduloT.parentType = FormatTools.SPECTRA;
     m.moduloT.typeDescription = "TCSPC";
-
+      
     m.moduloT.start = 0;
     m.moduloT.step = timeResol * 1000;  // Convert to ps
     m.moduloT.end = m.moduloT.step * (m.sizeT - 1);
     m.moduloT.unit = "ps";
-
+    
     int sizeThreshold = 128 * 128 * 1024;  // Arbitararily chosen size limit for buffer
     blockLength = 2048;   //default No of bins in buffer
-
+    
     while (blockLength * sizeX * sizeY > sizeThreshold)
       blockLength = blockLength/2;
-
+    
     if (blockLength > timeBins)
       blockLength = timeBins;
-
+    
     MetadataStore store = makeFilterMetadata();
     MetadataTools.populatePixels(store, this);
-
+    
     Length pRpf = FormatTools.getPhysicalSizeX((double)pixResol);
     store.setPixelsPhysicalSizeX(pRpf, 0);
     store.setPixelsPhysicalSizeY(pRpf, 0);
-
+    
   }
 
 }
