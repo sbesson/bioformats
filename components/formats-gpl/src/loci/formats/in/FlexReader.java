@@ -1388,6 +1388,10 @@ public class FlexReader extends FormatReader {
 
         nFiles = files.size();
 
+        if (runCount == 0) runCount = 1;
+        if (nFiles == 0) nFiles = 1;
+        if (runCount > nFiles) runCount = 1;
+
         String[] sortedFiles = files.toArray(new String[files.size()]);
         Arrays.sort(sortedFiles);
         files.clear();
@@ -1470,7 +1474,7 @@ public class FlexReader extends FormatReader {
           // should be taken from the XML
           boolean parsedXML = parseFlexFile(currentWell, row, col, nFiles == 1 ? -1 : field, firstFile, store);
           s.close();
-	  if (firstFile && parsedXML) firstFile = false;
+          if (firstFile && parsedXML) firstFile = false;
         }
         currentWell++;
       }
