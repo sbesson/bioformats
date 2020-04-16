@@ -1306,12 +1306,14 @@ public class FlexReader extends FormatReader {
         firstIFD = parser.getFirstIFD();
         ifdCount = parser.getIFDOffsets().length;
       }
+      LOGGER.debug("Number of IFDs found: {}", ifdCount);
       boolean compressed =
         firstIFD.getCompression() != TiffCompression.UNCOMPRESSED;
       if (firstCompressed == null) {
         firstCompressed = compressed;
         firstIFDCount = ifdCount;
       }
+      LOGGER.debug("First IFD is compressed: {}", compressed);
       String xml = XMLTools.sanitizeXML(firstIFD.getIFDStringValue(FLEX));
       int barcodeIndex = xml.indexOf("Barcode");
       String barcode = "";
@@ -1320,6 +1322,7 @@ public class FlexReader extends FormatReader {
         int end = xml.indexOf("<", barcodeIndex);
         if (start > 0 && end > 0) {
           barcode = xml.substring(start, end);
+          LOGGER.debug("Barcode detected: {}", barcode);
         }
       }
       if (firstBarcode == null) {
