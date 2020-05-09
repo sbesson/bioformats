@@ -1329,7 +1329,7 @@ public class FlexReader extends FormatReader {
         firstBarcode = barcode;
       }
 
-      if (compressed == firstCompressed && barcode.equals(firstBarcode) &&
+      if (compressed == firstCompressed &&
         ifdCount <= firstIFDCount)
       {
         int[] well = getWell(file);
