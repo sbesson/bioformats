@@ -108,6 +108,11 @@
       <artifactId>jxrlib-all</artifactId>
       <version>${jxrlib.version}</version>
     </dependency>
+    <dependency>
+      <groupId>cisd</groupId>
+      <artifactId>jhdf5</artifactId>
+      <version>14.12.6</version>
+    </dependency>
 
     <!-- xerces is no longer a dependency of metadata-extractor, but it may be required by other BF components -->
     <dependency>
