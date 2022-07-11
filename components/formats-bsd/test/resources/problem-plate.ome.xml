@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<OME xmlns="http://www.openmicroscopy.org/Schemas/OME/2016-06" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openmicroscopy.org/Schemas/OME/2016-06 http://www.openmicroscopy.org/Schemas/OME/2016-06/ome.xsd">
+  <Plate ID="Plate:1">
+    <Description>a strange well placement bug</Description>
+    <Well ID="Well:1" Row="0" Column="0">
+      <WellSample ID="WellSample:1" Index="1">
+        <ImageRef ID="Image:1"/>
+      </WellSample>
+    </Well>
+    <Well ID="Well:2" Row="1" Column="1">
+      <WellSample ID="WellSample:2" Index="2">
+        <ImageRef ID="Image:2"/>
+      </WellSample>
+    </Well>
+    <Well ID="Well:3" Row="2" Column="2">
+      <WellSample ID="WellSample:3" Index="3">
+        <ImageRef ID="Image:3"/>
+      </WellSample>
+    </Well>
+    <Well ID="Well:4" Row="3" Column="3">
+      <WellSample ID="WellSample:4" Index="4">
+        <ImageRef ID="Image:4"/>
+      </WellSample>
+    </Well>
+    <Well ID="Well:5" Row="4" Column="4">
+      <WellSample ID="WellSample:5" Index="5">
+        <ImageRef ID="Image:5"/>
+      </WellSample>
+    </Well>
+    <Well ID="Well:6" Row="0" Column="4">
+      <WellSample ID="WellSample:6" Index="6">
+        <ImageRef ID="Image:6"/>
+      </WellSample>
+    </Well>
+    <Well ID="Well:7" Row="1" Column="3">
+      <WellSample ID="WellSample:7" Index="7">
+        <ImageRef ID="Image:7"/>
+      </WellSample>
+    </Well>
+    <Well ID="Well:8" Row="3" Column="1">
+      <WellSample ID="WellSample:8" Index="8">
+        <ImageRef ID="Image:8"/>
+      </WellSample>
+    </Well>
+    <Well ID="Well:9" Row="4" Column="0">
+      <WellSample ID="WellSample:9" Index="9">
+        <ImageRef ID="Image:9"/>
+      </WellSample>
+    </Well>
+  </Plate>
+  <Image ID="Image:1" Name="far top left">
+    <Pixels ID="Pixels:1" DimensionOrder="XYZCT" SizeX="96" SizeY="96" SizeZ="1" SizeC="1" SizeT="1" Type="int8">
+      <Channel ID="Channel:1"/>
+      <BinData BigEndian="false" Compression="zlib" Length="92">eJztzrEJAAAMw7DTm9N7RSCD8G6US7XyPuU9Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8//7T/AQWo7wA=</BinData>
+    </Pixels>
+  </Image>
+  <Image ID="Image:2" Name="center top left">
+    <Pixels ID="Pixels:2" DimensionOrder="XYZCT" SizeX="96" SizeY="96" SizeZ="1" SizeC="1" SizeT="1" Type="int8">
+      <Channel ID="Channel:2"/>
+      <BinData BigEndian="false" Compression="zlib" Length="92">eJztzrEJAAAMw7DTm9N7RSCD8G6US7XyPuU9Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8//7T/AQWo7wA=</BinData>
+    </Pixels>
+  </Image>
+  <Image ID="Image:3" Name="middle">
+    <Pixels ID="Pixels:3" DimensionOrder="XYZCT" SizeX="96" SizeY="96" SizeZ="1" SizeC="1" SizeT="1" Type="int8">
+      <Channel ID="Channel:3"/>
+      <BinData BigEndian="false" Compression="zlib" Length="92">eJztzrEJAAAMw7DTm9N7RSCD8G6US7XyPuU9Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8//7T/AQWo7wA=</BinData>
+    </Pixels>
+  </Image>
+  <Image ID="Image:4" Name="center bottom right">
+    <Pixels ID="Pixels:4" DimensionOrder="XYZCT" SizeX="96" SizeY="96" SizeZ="1" SizeC="1" SizeT="1" Type="int8">
+      <Channel ID="Channel:4"/>
+      <BinData BigEndian="false" Compression="zlib" Length="92">eJztzrEJAAAMw7DTm9N7RSCD8G6US7XyPuU9Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8//7T/AQWo7wA=</BinData>
+    </Pixels>
+  </Image>
+  <Image ID="Image:5" Name="far bottom right">
+    <Pixels ID="Pixels:5" DimensionOrder="XYZCT" SizeX="96" SizeY="96" SizeZ="1" SizeC="1" SizeT="1" Type="int8">
+      <Channel ID="Channel:5"/>
+      <BinData BigEndian="false" Compression="zlib" Length="92">eJztzrEJAAAMw7DTm9N7RSCD8G6US7XyPuU9Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8//7T/AQWo7wA=</BinData>
+    </Pixels>
+  </Image>
+  <Image ID="Image:6" Name="far top right">
+    <Pixels ID="Pixels:6" DimensionOrder="XYZCT" SizeX="96" SizeY="96" SizeZ="1" SizeC="1" SizeT="1" Type="int8">
+      <Channel ID="Channel:6"/>
+      <BinData BigEndian="false" Compression="zlib" Length="92">eJztzrEJAAAMw7DTm9N7RSCD8G6US7XyPuU9Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8//7T/AQWo7wA=</BinData>
+    </Pixels>
+  </Image>
+  <Image ID="Image:7" Name="center top right">
+    <Pixels ID="Pixels:7" DimensionOrder="XYZCT" SizeX="96" SizeY="96" SizeZ="1" SizeC="1" SizeT="1" Type="int8">
+      <Channel ID="Channel:7"/>
+      <BinData BigEndian="false" Compression="zlib" Length="92">eJztzrEJAAAMw7DTm9N7RSCD8G6US7XyPuU9Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8//7T/AQWo7wA=</BinData>
+    </Pixels>
+  </Image>
+  <Image ID="Image:8" Name="center bottom left">
+    <Pixels ID="Pixels:8" DimensionOrder="XYZCT" SizeX="96" SizeY="96" SizeZ="1" SizeC="1" SizeT="1" Type="int8">
+      <Channel ID="Channel:8"/>
+      <BinData BigEndian="false" Compression="zlib" Length="92">eJztzrEJAAAMw7DTm9N7RSCD8G6US7XyPuU9Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8//7T/AQWo7wA=</BinData>
+    </Pixels>
+  </Image>
+  <Image ID="Image:9" Name="far bottom left">
+    <Pixels ID="Pixels:9" DimensionOrder="XYZCT" SizeX="96" SizeY="96" SizeZ="1" SizeC="1" SizeT="1" Type="int8">
+      <Channel ID="Channel:9"/>
+      <BinData BigEndian="false" Compression="zlib" Length="92">eJztzrEJAAAMw7DTm9N7RSCD8G6US7XyPuU9Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8//7T/AQWo7wA=</BinData>
+    </Pixels>
+  </Image>
+</OME>
