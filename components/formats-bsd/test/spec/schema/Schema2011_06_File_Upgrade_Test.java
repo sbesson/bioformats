@@ -70,6 +70,7 @@ import ome.xml.model.Well;
 import ome.xml.model.PlateAcquisition;
 import ome.xml.model.WellSample;
 import ome.xml.model.XMLAnnotation;
+import ome.xml.model.primitives.Timestamp;
 
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -530,7 +531,7 @@ public class Schema2011_06_File_Upgrade_Test {
     @Test (groups = {"11-06-u-image"}, dependsOnMethods = {"testImage0Name"})
     public void testImage0Date() {
         Assert.assertNotNull(image0);
-        Assert.assertEquals(ref.Image0AcquiredDate, image0.getAcquisitionDate());
+        Assert.assertEquals(Timestamp.valueOf(ref.Image0AcquiredDate), image0.getAcquisitionDate());
     }
 
     @Test (groups = {"11-06-u-image"}, dependsOnMethods = {"testImage0Name"})

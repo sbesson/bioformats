@@ -60,6 +60,7 @@ import ome.xml.model.Objective;
 import ome.xml.model.Pixels;
 import ome.xml.model.Point;
 import ome.xml.model.TransmittanceRange;
+import ome.xml.model.primitives.Timestamp;
 
 import ome.units.UNITS;
 
@@ -358,7 +359,7 @@ public class Schema2011_06_Instrument_Upgrade_Test {
     @Test (groups = {"11-06-i-image"}, dependsOnMethods = {"testImage0Name"})
     public void testImage0Values() {
         Assert.assertNotNull(image0);
-        Assert.assertEquals(ref.Image0AcquiredDate, image0.getAcquisitionDate());
+        Assert.assertEquals(Timestamp.valueOf(ref.Image0AcquiredDate), image0.getAcquisitionDate());
         Assert.assertEquals(ref.Image0Description, image0.getDescription());
     }
 
