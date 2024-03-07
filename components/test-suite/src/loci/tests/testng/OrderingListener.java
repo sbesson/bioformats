@@ -49,8 +49,8 @@ public class OrderingListener implements IMethodInterceptor {
     Arrays.sort(originalMethods, new Comparator<IMethodInstance>() {
       @Override
       public int compare(IMethodInstance m1, IMethodInstance m2) {
-        FormatReaderTest i1 = (FormatReaderTest) m1.getInstances()[0];
-        FormatReaderTest i2 = (FormatReaderTest) m2.getInstances()[0];
+        FormatReaderTest i1 = (FormatReaderTest) m1.getInstance();
+        FormatReaderTest i2 = (FormatReaderTest) m2.getInstance();
         String instance1 = i1.getID();
         String instance2 = i2.getID();
         int instance = instance1.compareTo(instance2);
