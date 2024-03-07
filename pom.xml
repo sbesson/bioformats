@@ -47,7 +47,6 @@
     <metakit.version>${ome-metakit.version}</metakit.version>
     <slf4j.version>2.0.9</slf4j.version>
     <kryo.version>5.4.0</kryo.version>
-    <testng.version>6.8</testng.version>
     <ome-common.version>6.0.21</ome-common.version>
     <ome-model.group>org.openmicroscopy</ome-model.group>
     <ome-model.version>6.3.4</ome-model.version>
@@ -618,6 +617,24 @@
           </plugins>
         </pluginManagement>
       </build>
+    </profile>
+    <profile>
+      <id>jdk8-only</id>
+      <activation>
+        <jdk>(,11)</jdk>
+      </activation>
+      <properties>
+        <testng.version>7.5</testng.version>
+      </properties>
+    </profile>
+    <profile>
+      <id>jdk11+</id>
+      <activation>
+        <jdk>[11,)</jdk>
+      </activation>
+      <properties>
+        <testng.version>7.9.0</testng.version>
+      </properties>
     </profile>
   </profiles>
 
