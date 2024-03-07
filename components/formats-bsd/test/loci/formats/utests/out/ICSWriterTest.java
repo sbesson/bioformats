@@ -32,11 +32,10 @@
 
 package loci.formats.utests.out;
 
-import static org.testng.Assert.assertEquals;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
-import org.junit.Assert;
 import loci.common.ByteArrayHandle;
 import loci.common.Location;
 import loci.common.services.DependencyException;
@@ -54,6 +53,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import org.testng.Assert;
 
 /**
  * Tests the functionality of ICSWriter
@@ -93,7 +93,7 @@ public class ICSWriterTest {
 
   @Test
   public void testGetPixelTypes() {
-    Assert.assertArrayEquals(WriterUtilities.pixelTypesICS, writer.getPixelTypes(WriterUtilities.COMPRESSION_UNCOMPRESSED));
+    Assert.assertEquals(WriterUtilities.pixelTypesICS, writer.getPixelTypes(WriterUtilities.COMPRESSION_UNCOMPRESSED));
   }
   
   @Test
@@ -149,9 +149,9 @@ public class ICSWriterTest {
 
     for (int s=0; s<reader.getSeriesCount(); s++) {
       reader.setSeries(s);
-      assertEquals(reader.getSizeC(), rgbChannels);
+      Assert.assertEquals(reader.getSizeC(), rgbChannels);
       int imageCount = reader.isRGB() ? seriesCount * sizeT : rgbChannels * sizeT * seriesCount;
-      assertEquals(reader.getImageCount(), imageCount);
+      Assert.assertEquals(reader.getImageCount(), imageCount);
       for (int image=0; image<reader.getImageCount(); image++) {
         byte[] readPlane = reader.openBytes(image);
         Plane newPlane = new Plane(readPlane, reader.isLittleEndian(),
@@ -209,9 +209,9 @@ public class ICSWriterTest {
 
     for (int s=0; s<reader.getSeriesCount(); s++) {
       reader.setSeries(s);
-      assertEquals(reader.getSizeC(), rgbChannels);
+      Assert.assertEquals(reader.getSizeC(), rgbChannels);
       int imageCount = reader.isRGB() ? seriesCount * sizeT : rgbChannels * sizeT * seriesCount;
-      assertEquals(reader.getImageCount(), imageCount);
+      Assert.assertEquals(reader.getImageCount(), imageCount);
       for (int image=0; image<reader.getImageCount(); image++) {
         byte[] readPlane = reader.openBytes(image);
         Plane newPlane = new Plane(readPlane, reader.isLittleEndian(),

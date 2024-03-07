@@ -32,11 +32,9 @@
 
 package loci.formats.utests.out;
 
-import static org.testng.Assert.assertEquals;
 import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
-import org.junit.Assert;
 import loci.common.ByteArrayHandle;
 import loci.common.Location;
 import loci.common.services.ServiceFactory;
@@ -50,11 +48,13 @@ import loci.formats.utests.tiff.TiffWriterMock;
 import ome.xml.model.enums.DimensionOrder;
 import ome.xml.model.enums.PixelType;
 import ome.xml.model.primitives.PositiveInteger;
+
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import org.testng.Assert;
 
 /**
  * Tests the functionality of TiffWriter
@@ -197,38 +197,38 @@ public class TiffWriterTest {
       thrown = true;
     }
     if (suffix.contains("tif")) {
-      assertEquals(true,thrown);
+      Assert.assertEquals(true,thrown);
     }
     else {
-      assertEquals(false,thrown);
+      Assert.assertEquals(false,thrown);
     }
   }
 
   @Test(dataProvider = "codecs")
   public void testgetPixelTypes(String codec, int[] pixelTypes) {
-    Assert.assertArrayEquals(pixelTypes, writer.getPixelTypes(codec));
+    Assert.assertEquals(pixelTypes, writer.getPixelTypes(codec));
   }
 
   @Test
   public void testGetPlaneCount() throws IOException, FormatException {
     writer.setMetadataRetrieve(metadata);
     writer.setSeries(0);
-    assertEquals(WriterUtilities.SIZE_T * WriterUtilities.SIZE_Z * WriterUtilities.SIZE_C, writer.getPlaneCount());
+    Assert.assertEquals(WriterUtilities.SIZE_T * WriterUtilities.SIZE_Z * WriterUtilities.SIZE_C, writer.getPlaneCount());
     metadata.setPixelsSizeC(new PositiveInteger(4), 0);
     metadata.setPixelsType(PixelType.INT16, 0);
     writer.setMetadataRetrieve(metadata);
-    assertEquals(WriterUtilities.SIZE_T * WriterUtilities.SIZE_Z * 4, writer.getPlaneCount());
+    Assert.assertEquals(WriterUtilities.SIZE_T * WriterUtilities.SIZE_Z * 4, writer.getPlaneCount());
   }
 
   @Test
   public void testGetTileSizeX() throws IOException, FormatException {
     writer.setMetadataRetrieve(metadata);
-    assertEquals(0, writer.getTileSizeX());
+    Assert.assertEquals(0, writer.getTileSizeX());
     writer.close();
     writer = new TiffWriter();
     metadata.setPixelsSizeX(new PositiveInteger(100), 0);
     writer.setMetadataRetrieve(metadata);
-    assertEquals(0, writer.getTileSizeX());
+    Assert.assertEquals(0, writer.getTileSizeX());
   }
 
   @Test
@@ -237,17 +237,17 @@ public class TiffWriterTest {
     try {
       for (int i = 16; i < WriterUtilities.SIZE_X; i+=16) {
         writer.setTileSizeX(i);
-        assertEquals(i, writer.getTileSizeX());
+        Assert.assertEquals(i, writer.getTileSizeX());
       }
       writer.setTileSizeX(WriterUtilities.SIZE_X);
-      assertEquals(WriterUtilities.SIZE_X, writer.getTileSizeX());
+      Assert.assertEquals(WriterUtilities.SIZE_X, writer.getTileSizeX());
       for (int i = 1; i < 24; i++) {
         writer.setTileSizeX(i);
-        assertEquals(16, writer.getTileSizeX());
+        Assert.assertEquals(16, writer.getTileSizeX());
       }
       for (int i = 24; i < 40; i++) {
         writer.setTileSizeX(i);
-        assertEquals(32, writer.getTileSizeX());
+        Assert.assertEquals(32, writer.getTileSizeX());
       }
     }
     catch(FormatException fe) {
@@ -258,12 +258,12 @@ public class TiffWriterTest {
   @Test
   public void testGetTileSizeY() throws IOException, FormatException {
     writer.setMetadataRetrieve(metadata);
-    assertEquals(0, writer.getTileSizeY());
+    Assert.assertEquals(0, writer.getTileSizeY());
     writer.close();
     writer = new TiffWriter();
     metadata.setPixelsSizeY(new PositiveInteger(100), 0);
     writer.setMetadataRetrieve(metadata);
-    assertEquals(0, writer.getTileSizeY());
+    Assert.assertEquals(0, writer.getTileSizeY());
   }
 
   @Test
@@ -272,17 +272,17 @@ public class TiffWriterTest {
     try {
       for (int i = 16; i < WriterUtilities.SIZE_Y; i+=16) {
         writer.setTileSizeY(i);
-        assertEquals(i, writer.getTileSizeY());
+        Assert.assertEquals(i, writer.getTileSizeY());
       }
       writer.setTileSizeY(WriterUtilities.SIZE_Y);
-      assertEquals(WriterUtilities.SIZE_Y, writer.getTileSizeY());
+      Assert.assertEquals(WriterUtilities.SIZE_Y, writer.getTileSizeY());
       for (int i = 1; i < 24; i++) {
         writer.setTileSizeY(i);
-        assertEquals(16, writer.getTileSizeY());
+        Assert.assertEquals(16, writer.getTileSizeY());
       }
       for (int i = 24; i < 40; i++) {
         writer.setTileSizeY(i);
-        assertEquals(32, writer.getTileSizeY());
+        Assert.assertEquals(32, writer.getTileSizeY());
       }
     }
     catch(FormatException fe) {
@@ -295,9 +295,9 @@ public class TiffWriterTest {
     try {
       writer.setMetadataRetrieve(metadata);
       writer.setTileSizeX(0);
-      assertEquals(0, writer.getTileSizeX());
+      Assert.assertEquals(0, writer.getTileSizeX());
       writer.setTileSizeY(0);
-      assertEquals(0, writer.getTileSizeY());
+      Assert.assertEquals(0, writer.getTileSizeY());
     }
     catch (FormatException e) {
       assert(false);
@@ -415,8 +415,8 @@ public class TiffWriterTest {
     }
 
     IFD tileIFd = reader.getIFDs().get(0);
-    assertEquals(tileIFd.getIFDIntValue(IFD.TILE_LENGTH), expectedTileSize);
-    assertEquals(tileIFd.getIFDIntValue(IFD.TILE_WIDTH), expectedTileSize);
+    Assert.assertEquals(tileIFd.getIFDIntValue(IFD.TILE_LENGTH), expectedTileSize);
+    Assert.assertEquals(tileIFd.getIFDIntValue(IFD.TILE_WIDTH), expectedTileSize);
 
     WriterUtilities.checkImage(reader, originalPlane, interleaved, rgbChannels, seriesCount, sizeT, compression);
 
